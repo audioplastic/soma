@@ -1,0 +1,12 @@
+classdef sigProc
+%SIGPROC Summary of this class goes here
+%   Detailed explanation goes here
+
+   properties
+       sr           = 25e3;                   
+       sig          = repmat([1 zeros(1,499)],1,5)
+   end
+
+   methods
+   end
+end 

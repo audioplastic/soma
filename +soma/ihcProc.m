@@ -47,7 +47,7 @@ classdef ihcProc < soma.gtfProc
 
                     %avoid log problems by making everything > 1
                     value(value<1)=1;
-                    value=20*log10(value); %The 20* is pointless, but is in AIM, so it is in here.
+                    value=log10(value);
             end
 
             %this stage is phase locking limitation

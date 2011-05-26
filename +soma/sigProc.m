@@ -5,7 +5,7 @@ classdef sigProc
 
     properties
         sr           = 25e3
-        sig          = repmat([1 zeros(1,499)],1,5)
+        sig          = repmat([1; zeros(499,1)],5,1)
     end
     %************************************************************
     % Dependents - never set by user, only calculated when needed
@@ -27,7 +27,6 @@ classdef sigProc
             if nargin > 1
                 obj.sr = sr;
             end
-%             obj.Splash
         end
 
         %% **********************************************************
@@ -62,8 +61,8 @@ classdef sigProc
             obj.sr = value;
         end
         function obj = set.sig(obj,value)
-            assert (size(value,1) < 2 ,...
-                'Audio signal must be input as a mono row-vector (use a second soma object for stereo)')
+            assert (size(value,2) < 2 ,...
+                'Audio signal must be input as a mono column-vector (use a second soma object for stereo)')
             obj.sig = value;
         end
                
@@ -77,7 +76,7 @@ classdef sigProc
                 ' _ __  _ __ ___/ / /\\ \\ \\__ _ _ __ ___ ™\n' ...
                 '| ''_ \\| ''__/ __\\ \\/  \\/ / _` | ''__/ _ \\ \n' ...
                 '| | | | | | (__ \\  /\\  / (_| | | |  __/\n' ...
-                '|_| |_•_|• \\___| \\/  \\/ \\__,_|_|  \\___| Nick Clark 2009\n\n\n'   ];
+                '|_| |_•_|• \\___| \\/  \\/ \\__,_|_|  \\___| © Nick Clark 2009\n\n\n'   ];
             fprintf(1,splTmp);
         end%Splash
     end%static methods

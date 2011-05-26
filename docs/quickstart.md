@@ -55,6 +55,6 @@ This is where we jump in at the deep end. The inner haircell process (ihcProc) i
 
 Doing this will create an object named x of type soma.ihcProc in the workspace.
 
-![Workspace](/docs/images/Workspace.png)
+![Workspace](https://github.com/audioplastic/soma/raw/master/docs/images/Workspace.png)
 
 Typing x into the command window without a semicolon will show all of the properties of the object...

@@ -63,6 +63,6 @@ For a more detailed description of the function of each of the stages in the aud
 
 [soundsoftware]:http://code.soundsoftware.ac.uk/projects/auditory-models
 
-[quick start guide]: https://github.com/audioplastic/soma/raw/master/docs/quickstart.md
+[quick start guide]: https://github.com/audioplastic/soma/blob/master/docs/quickstart.md
 
 [markdown]: http://softwaremaniacs.org/playground/showdown-highlight/

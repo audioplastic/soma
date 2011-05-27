@@ -14,7 +14,7 @@ SOMA
 
 This document is written in [markdown] syntax.
 
-
+![screenshot](https://github.com/audioplastic/soma/raw/master/docs/images/main_shot.png)
 
 
 Simple

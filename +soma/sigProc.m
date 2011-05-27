@@ -72,6 +72,9 @@ classdef sigProc
     %************************************************************
     methods (Static)
         function Splash
+            if ismac
+                disp('This is going to be ugly!');
+            end
             splTmp =[   '                __    __               \n' ...
                 ' _ __  _ __ ___/ / /\\ \\ \\__ _ _ __ ___ ™\n' ...
                 '| ''_ \\| ''__/ __\\ \\/  \\/ / _` | ''__/ _ \\ \n' ...

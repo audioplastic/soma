@@ -98,43 +98,10 @@ The stimulus related properties include...
 
 When the object is first created,the default signal is a brief click train. This can be visualised easily by doing a stem plot...
 
-    stem(x.tAxis*1000, x.sig); xlabel('Time in ms'); ylim([0 1.2])
+    >> stem(x.tAxis*1000, x.sig); xlabel('Time in ms'); ylim([0 1.2])
 
 ![clicks](https://github.com/audioplastic/soma/raw/master/docs/images/clicks.PNG)
 
-If the stimulus is extended, by adding trailing zeros for example ...
-
-    x.sig = [x.sig; zeros(100,1)]
-
-..then some of the novelty of this model begins to shine through. On re-inspection of the stimulus related properties,it is now evident that the object is automatically updating its properties to accommodate the user specified change. Just looking at the stimulus related properties, the time axis has increased in length, the 'nSamp' parameter is now 2600, and the 'dur' parameter now reflects the new duration of 0.104 seconds (all properties are specified in SI units).
-
-            sig: [2600x1 double]
-          tAxis: [1x2600 double]
-          nSamp: 2600
-            dur: 0.1040
-
-Return the signal back to its original size and the other parameters will follow.
-
-   x.sig = x.sig(1:2500);
-
-To view a summary of the auditory nerve information in response to a stimulus, the object has a built in 'see' method that can be invoked by typing either 
-
-    x.see
-
-or 
-
-    see(x)
-
-
-![clicksD](https://github.com/audioplastic/soma/raw/master/docs/images/clicks30d.PNG)
-
-Those preferring the more sedate standard Matlab colour scheme can revert to it simply by switching the 'darkTheme' property to zero or false.
-
-    close all
-    x.darkTheme = false;
-    x.see
-
-![clicksL](https://github.com/audioplastic/soma/raw/master/docs/images/clicks30l.PNG)
 
 
 

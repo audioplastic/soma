@@ -17,5 +17,5 @@ x = ihcProc;
 x.see;
 
 %% ramp up the channel density and redisplay the output
-x.bmm_nChans = 256;
-x.see;
+% x.bmm_nChans = 128;
+% x.see;

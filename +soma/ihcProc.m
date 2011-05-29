@@ -103,7 +103,7 @@ classdef ihcProc < soma.gtfProc
             pcolor(obj.tAxis*1e3, 1:obj.bmm_nChans, obj.ihc');
             shading interp; colormap bone
             ylabel('chan #');
-            hTit2D = title(['Spiking prob: Compression = ',obj.ihc_cmpType], 'FontSize', 17);            
+            hTit2D = title(['Spiking prob: Compression = ',obj.ihc_cmpType], 'FontSize', 15);            
             set(gca,'XTick', [], 'XTickLabel', [])
             
             %*** RMSc ***
@@ -116,7 +116,8 @@ classdef ihcProc < soma.gtfProc
             
             %*** RMSt ***
             haxT = axes('Position',[ml ml mw 1-mh-2.3*ml]);            
-            hlT = plot(obj.tAxis*1e3, obj.ihc_RMSt, 'k');            
+            hlT = plot(obj.tAxis*1e3, obj.ihc_RMSt, 'k');  
+            xlim([obj.tAxis(1) obj.tAxis(end)]*1e3)
             xlabel('time [ms]');
             ylabel('RMS');
             grid on
@@ -137,7 +138,7 @@ classdef ihcProc < soma.gtfProc
                 'FontName', 'FixedWidth',...
                 'FontUnits', 'normalized',...
                 'FontWeight', 'bold',...
-                'FontSize', 0.14,...
+                'FontSize', 0.13,...
                 'String', flare);
             
             %Invert colours

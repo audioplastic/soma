@@ -3,5 +3,5 @@
 Thumbs.db
 
 #ignore mac evils
-*~ 	#ignore mac autosaves
+*.*~
 .DS_Store

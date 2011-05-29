@@ -1,3 +1,7 @@
-*.asv 	#ignore windows autosaves
-*.*~ 	#ignore mac autosaves
+#ignore windows autosaves and other evils
+*.asv
+Thumbs.db
+
+#ignore mac evils
+*~ 	#ignore mac autosaves
 .DS_Store

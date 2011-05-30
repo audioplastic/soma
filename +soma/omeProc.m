@@ -3,7 +3,7 @@ classdef omeProc < soma.sigProc
     %   Very simplified version of oute rmiddle ear transfer function. Just
     %   a butterworth filter.
 
-    properties
+    properties (SetObservable, AbortSet)
         %OUT/MID EAR PROPERTIES
         ome_fLoCut  = 450;  %lf cutoff (default = 450 Hz)
         ome_fHiCut  = 8000; %hf cutoff (default = 8000 Hz)

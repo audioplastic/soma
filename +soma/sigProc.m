@@ -1,9 +1,9 @@
-classdef sigProc
+classdef sigProc < handle
     %SIGPROC Simple signal class
     %   Superclass for everything. Includes a few simple properties such as
     %   duration calculation etc.
 
-    properties
+    properties (SetObservable, AbortSet)
         sr           = 25e3
         sig          = repmat([1; zeros(499,1)],5,1)
     end

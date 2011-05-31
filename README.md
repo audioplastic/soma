@@ -178,7 +178,7 @@ If the stimulus is extended, by adding trailing zeros for example ...
 
 Return the signal back to its original size and the other parameters will follow.
 
-   x.sig = x.sig(1:2500);
+    x.sig = x.sig(1:2500);
 
 You will notice that some of the other properties also change size (and values contained) when the stimulus is modified. These other properties represent the signal at various stages along the auditory periphery. Properties prefixed by 'ome' are associated with outer middle ear processing. Properties prefixed by 'bmm' are associated with basilar membrane motion processing. Properties prefixed by 'ihc' are associated with inner-haircell mechanical-to-neural processing.
 
@@ -188,6 +188,8 @@ The best way to find the settable properties it to poke around trying to change 
 
 Currently, the model does not simulate any efferent processing and so the effects of parameter changes are all feed-forward. For example, if you change an ihc property, then the stapes velocity will not change, because no acoustic reflex feedback loop is implemented (Prof. Meddis' [MAP] model does contain this kind of advanced feedback simulation). Pretty much any parameter change will effect the ihc property as it is at the end of the chain.
 
+[MAP]:
+https://github.com/rmeddis/MAP
 
 More than just a plot routine: nerveView
 ========================================

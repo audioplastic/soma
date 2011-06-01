@@ -2,7 +2,9 @@ classdef nerveView < handle
     properties
         hFig
         lcopy
-        
+    end
+    
+    properties (Access=private)    
         hax2D
         haxC
         hTit2D

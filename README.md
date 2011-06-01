@@ -105,7 +105,10 @@ How this guide works
 
 Commands are listed in this readme along with screenshots of the results that they will produce. Just type or paste the commands directly into the command window if you want to follow along.
 
-There are also a couple of demo scripts included with the package that demonstrate a typical work flow. Take some time to open, modify and run these scripts after reading the quick guide.
+There are also a couple of demo scripts included with the package that demonstrate a typical work flow. Take some time to open, modify and run these scripts after reading the quick guide. The demo scripts also have associated MATALB published code that can be viewed in your browser by looking in the [html folder].
+
+[html folder]:
+https://github.com/audioplastic/soma/tree/master/html/SOMA_demo.html
 
 
 

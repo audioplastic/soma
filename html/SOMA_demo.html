@@ -1,0 +1,200 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>soma_demo.m</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2011-06-01"><meta name="m-file" content="SOMA_demo"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>soma_demo.m</h1><!--introduction--><p>This is a simple demo script that highlights a few features of he soma model. Downloads and full documentation are available at https://github.com/audioplastic/soma I strongly suggest you look over the above link before running this demo.</p><p>Run this script one cell at at time (ctrl+return).</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Excitation pattern demo</a></li><li><a href="#2">Increase the channel density</a></li><li><a href="#3">Lower F0</a></li><li><a href="#4">Alternating phase</a></li></ul></div><h2>Excitation pattern demo<a name="1"></a></h2><p>This first demo looks at the model response to harmonic complex tones. By adjusting the fundamental frequency, the the harmonic resolvability of individual partials can be seen to change in the excitation pattern shown by the nerveView window.</p><pre class="codeinput">close <span class="string">all</span>; clear <span class="string">all</span>; clc; clear <span class="string">classes</span>
+
+import <span class="string">soma.*</span>
+
+x = ihcProc; <span class="comment">%make an ihc process</span>
+
+<span class="comment">% Now fill the sig field with a sinusoid</span>
+dt = 1/x.sr;
+timeVect = dt:dt:0.25;
+fZero = 440;
+harmonicN = 1:10;
+harmonicComplex = mean(sin(2*pi*fZero*timeVect'*harmonicN),2);
+
+<span class="comment">%Add some envelope ramps</span>
+rampDur = 10e-3; <span class="comment">%10 ms</span>
+envS = ceil( rampDur/dt );
+env = [ cos(linspace(-pi/2,0,envS))';<span class="keyword">...</span>
+        ones(numel(harmonicComplex)-2*envS, 1);<span class="keyword">...</span>
+        cos(linspace(0,pi/2,envS))'];
+harmonicComplex = harmonicComplex.*env;
+
+<span class="comment">%listen</span>
+soundsc(harmonicComplex,x.sr);
+
+<span class="comment">%push it into the soma object</span>
+x.sig = harmonicComplex;
+
+<span class="comment">%visualise</span>
+y = nerveView(x);
+</pre><pre class="codeoutput">Warning: Objects of 'onCleanup' class exist.  Cannot clear this class or any of its super-classes. 
+</pre><img vspace="5" hspace="5" src="SOMA_demo_01.png" alt=""> <h2>Increase the channel density<a name="2"></a></h2><pre class="codeinput"><span class="comment">%Ok, we can't see much spectral resolution in that plot because the channel</span>
+<span class="comment">%density is too low. Bump it up.</span>
+
+x.bmm_nChans = 256;
+
+<span class="comment">% Now many harmonic peaks are clearly distinguishable from their neighbors.</span>
+</pre><pre class="codeoutput">bmm_nChans change detected. Redrawing.
+</pre><img vspace="5" hspace="5" src="SOMA_demo_02.png" alt=""> <h2>Lower F0<a name="3"></a></h2><p>If the fundamental frequency is lowered, then the individual harmonics bunch closer together in frequency and stimulus becomes less resolved by a given filter.</p><pre class="codeinput">fZero = 110;
+harmonicN = 1:40;
+harmonicComplex = mean(sin(2*pi*fZero*timeVect'*harmonicN),2);
+harmonicComplex = harmonicComplex.*env;
+
+x.sig = harmonicComplex;
+</pre><pre class="codeoutput">sig change detected. Redrawing.
+</pre><img vspace="5" hspace="5" src="SOMA_demo_03.png" alt=""> <h2>Alternating phase<a name="4"></a></h2><p>The phase of the partials can be alternated to double the envelope rate. This does not influence the resolvability of individual harmonics, but it does change the excitation pattern due to phase interactions.</p><pre class="codeinput">altPhi = repmat([0 pi/2], 1, numel(harmonicN)/2);
+harmonicComplex = mean(sin(2*pi*fZero*timeVect'*harmonicN <span class="keyword">...</span>
+                        + repmat(altPhi,numel(timeVect),1)),2);
+harmonicComplex = harmonicComplex.*env;
+
+x.sig = harmonicComplex;
+</pre><pre class="codeoutput">sig change detected. Redrawing.
+</pre><img vspace="5" hspace="5" src="SOMA_demo_04.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+%% soma_demo.m
+% This is a simple demo script that highlights a few features of he soma
+% model. Downloads and full documentation are available at
+% https://github.com/audioplastic/soma
+% I strongly suggest you look over the above link before running this demo.
+%
+% Run this script one cell at at time (ctrl+return).
+
+%% Excitation pattern demo
+% This first demo looks at the model response to harmonic complex tones. By
+% adjusting the fundamental frequency, the the harmonic resolvability of
+% individual partials can be seen to change in the excitation pattern shown
+% by the nerveView window.
+close all; clear all; clc; clear classes
+
+import soma.*
+
+x = ihcProc; %make an ihc process
+
+% Now fill the sig field with a sinusoid
+dt = 1/x.sr;
+timeVect = dt:dt:0.25;
+fZero = 440;
+harmonicN = 1:10;
+harmonicComplex = mean(sin(2*pi*fZero*timeVect'*harmonicN),2);
+
+%Add some envelope ramps
+rampDur = 10e-3; %10 ms
+envS = ceil( rampDur/dt );
+env = [ cos(linspace(-pi/2,0,envS))';...
+        ones(numel(harmonicComplex)-2*envS, 1);...
+        cos(linspace(0,pi/2,envS))'];
+harmonicComplex = harmonicComplex.*env;
+
+%listen
+soundsc(harmonicComplex,x.sr);
+
+%push it into the soma object
+x.sig = harmonicComplex;
+
+%visualise
+y = nerveView(x);
+
+
+%% Increase the channel density
+%Ok, we can't see much spectral resolution in that plot because the channel
+%density is too low. Bump it up.
+
+x.bmm_nChans = 256;
+
+% Now many harmonic peaks are clearly distinguishable from their neighbors.
+
+
+%% Lower F0
+% If the fundamental frequency is lowered, then the individual harmonics
+% bunch closer together in frequency and stimulus becomes less resolved by
+% a given filter. 
+
+fZero = 110;
+harmonicN = 1:40;
+harmonicComplex = mean(sin(2*pi*fZero*timeVect'*harmonicN),2);
+harmonicComplex = harmonicComplex.*env;
+
+x.sig = harmonicComplex;
+
+
+%% Alternating phase
+% The phase of the partials can be alternated to double the envelope rate.
+% This does not influence the resolvability of individual harmonics, but it
+% does change the excitation pattern due to phase interactions.
+
+altPhi = repmat([0 pi/2], 1, numel(harmonicN)/2);
+harmonicComplex = mean(sin(2*pi*fZero*timeVect'*harmonicN ...
+                        + repmat(altPhi,numel(timeVect),1)),2);
+harmonicComplex = harmonicComplex.*env;
+
+x.sig = harmonicComplex;                    
+
+
+
+##### SOURCE END #####
+--></body></html>

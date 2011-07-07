@@ -29,9 +29,13 @@ classdef omeProc < soma.sigProc
         % Outer/mid ear processing -> get method
         %************************************************************
         function value = get.ome(obj)
-            [midEar_b,midEar_a] = butter(obj.ome_fOrd,...
-                [obj.ome_fLoCut obj.ome_fHiCut]*2*(1/obj.sr)); %Middle ear transfer coefficients
-            value = filter(midEar_b,midEar_a,obj.sig);
+            if obj.ome_fOrd
+                [midEar_b,midEar_a] = butter(obj.ome_fOrd,...
+                    [obj.ome_fLoCut obj.ome_fHiCut]*2*(1/obj.sr)); %Middle ear transfer coefficients            
+                value = filter(midEar_b,midEar_a,obj.sig);
+            else
+                value = obj.sig;
+            end
         end
 
         %% **********************************************************
@@ -48,7 +52,7 @@ classdef omeProc < soma.sigProc
             obj.ome_fLoCut = value;
         end
         function obj = set.ome_fOrd(obj,value)
-            assert (value > 0 && ~mod(value,1),...
+            assert (value >= 0 && ~mod(value,1),...
                 'fOrd must be a positive integer')
             obj.ome_fOrd = value;
         end
